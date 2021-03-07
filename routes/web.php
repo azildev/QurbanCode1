@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\BeforeMiddleware;
+use App\Http\Middleware\AfterMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('panel.login', ['title' => 'LOGIN :: Laravel(VUEJS)']);
+})->middleware('Before');
+Route::post('/account/login', 'App\Http\Controllers\AccountController@login')->name('login');
+
+// Auth::routes();
+Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard')->middleware('After');
