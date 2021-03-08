@@ -16,19 +16,22 @@ class AfterMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        $user  = User::where(['email' => $request->input('email')])->first();
-        if($request->session()->has('name')){
-           
-            return redirect('/dashboard');
+        
+        $response = $next($request);
+        
+        if (!Session('user')) {
+            // user value cannot be found in session
+            return redirect('/');
         }
-        else{
-            return $next($request);
-        }
-        // if ($user > 0) {
-        //     return redirect()->route('dashboard');
+        return $response;
+        
+        // $response = $next($request);
+        // if (!$request->session()->has('user')) {
+        //     // user value cannot be found in session
+        //     return redirect('/');
         // }
-        // return $next($request);
+        // return $response;
     }
 }

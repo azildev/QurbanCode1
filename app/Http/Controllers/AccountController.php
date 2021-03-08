@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
+
 class AccountController extends Controller
 {
     //
@@ -38,6 +39,10 @@ class AccountController extends Controller
         }
     }
 
-    
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/');
+    }    
 
 }

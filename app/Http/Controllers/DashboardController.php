@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return 'HAIIA'.Session::get('user');
+        return 'HAIIA'.Session::get('user').'<a href="{{ route("logout") }}">Logout</a>';
     }
 
 }
